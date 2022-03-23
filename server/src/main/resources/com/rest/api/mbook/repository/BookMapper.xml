@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.api.mbook.repository.BookMapper">
+    <select id="findAll" resultType="com.rest.api.mbook.entity.Book">
+        SELECT
+            book_info.book_id,
+            book_info.title,
+            book_info.release_date,
+            books.original_author,
+            books.drawer,
+            books.publisher
+        FROM user_books
+            INNER JOIN book_info ON user_books.book_id = book_info.book_id
+            INNER JOIN books ON user_books.book_id = books.book_id
+        WHERE user_books.user_id = #{user_id}
+        ORDER BY book_info.release_date
+    </select>
+</mapper>
