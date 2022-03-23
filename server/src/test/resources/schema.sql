@@ -5,8 +5,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(100) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    primary key (user_id),
-    UNIQUE user_name_index(user_name)
+    primary key (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS `role` (
@@ -16,21 +15,20 @@ CREATE TABLE IF NOT EXISTS `role` (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(100) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    primary key (role_id),
-    UNIQUE role_name_index(role_name)
+    primary key (role_id)
 );
 
 CREATE TABLE IF NOT EXISTS `user_role` (
+    user_role_id int(11) unsigned AUTO_INCREMENT NOT NULL,
     user_id int(11) unsigned NOT NULL,
     role_id int(11) unsigned NOT NULL,
     created_user VARCHAR(100) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(100) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    primary key (user_id, role_id),
+    primary key (user_role_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (role_id) REFERENCES role(role_id),
-    UNIQUE user_id_role_id_index(user_id, role_id)
+    FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
 -- 本マスタ
@@ -45,13 +43,13 @@ CREATE TABLE IF NOT EXISTS `books` (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(100) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    primary key (book_id),
-    UNIQUE book_title_index(title)
+    primary key (book_id)
 );
 
 -- 本情報
 -- 作品名、発売日、特装版
 CREATE TABLE IF NOT EXISTS `book_info` (
+    book_info_id int(11) unsigned AUTO_INCREMENT NOT NULL,
     book_id int(11) unsigned NOT NULL,
     title VARCHAR(200) NOT NULL,
     release_date VARCHAR(13) NOT NULL,
@@ -60,20 +58,19 @@ CREATE TABLE IF NOT EXISTS `book_info` (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(100) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    primary key (book_id, title),
-    FOREIGN KEY (book_id) REFERENCES books(book_id),
-    UNIQUE book_id_title_index(book_id, title)
+    primary key (book_info_id),
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
 );
 
 CREATE TABLE IF NOT EXISTS `user_books` (
+    user_book_id int(11) unsigned AUTO_INCREMENT NOT NULL,
     user_id int(11) unsigned NOT NULL,
     book_id int(11) unsigned NOT NULL,
     created_user VARCHAR(100) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_user VARCHAR(100) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    primary key (user_id, book_id),
+    primary key (user_book_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id),
-    UNIQUE user_id_book_id_index(user_id, book_id)
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
 );

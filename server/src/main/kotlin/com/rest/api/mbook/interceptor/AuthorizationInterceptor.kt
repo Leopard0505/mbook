@@ -97,6 +97,8 @@ class AuthorizationInterceptor: HandlerInterceptor {
         logger.info(String.format("ユーザー名： %s", user.user_name))
         logger.info(String.format("ユーザー権限： %s", user.getRole().name))
         logger.info("===========================")
+        // コントローラでユーザー情報を受け取れるようにuser属性として渡す
+        request.setAttribute("user", user)
         return true
     }
 

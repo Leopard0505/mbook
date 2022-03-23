@@ -11,7 +11,7 @@ import java.util.Date
 @Data
 data class Book (
     @Id
-    val book_id: Long = 0,
+    var book_id: Long = 0,
 
     @get: NotNull
     val title: String = "",
@@ -26,5 +26,9 @@ data class Book (
     val drawer: String = "",
 
     @get: NotNull
-    val publisher: String = ""
+    val publisher: String = "",
+
+    var created_user: String = "",
+
+    var updated_user: String = ""
 )

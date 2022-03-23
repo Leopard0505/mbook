@@ -15,4 +15,18 @@
         WHERE user_books.user_id = #{user_id}
         ORDER BY book_info.release_date
     </select>
+    <insert id="create" useGeneratedKeys="true" keyProperty="book_id">
+        INSERT INTO
+            books(title, original_author, drawer, publisher, created_user, updated_user)
+        VALUES (
+            #{title}, #{original_author}, #{drawer}, #{publisher}, #{created_user}, #{updated_user}
+        )
+    </insert>
+    <insert id="createUserBooks" useGeneratedKeys="true">
+        INSERT INTO
+            user_books(user_id, book_id, created_user, updated_user)
+        VALUES (
+            #{user.user_id}, #{book.book_id}, #{book.created_user}, #{book.updated_user}
+        )
+    </insert>
 </mapper>
