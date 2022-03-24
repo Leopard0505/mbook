@@ -3,7 +3,6 @@ package com.rest.api.mbook.entity
 import lombok.Data
 import org.jetbrains.annotations.NotNull
 import org.springframework.data.annotation.Id
-import java.util.Date
 
 /**
  * 本情報 Data
@@ -17,9 +16,6 @@ data class Book (
     val title: String = "",
 
     @get: NotNull
-    val release_date: Date = Date(),
-
-    @get: NotNull
     val original_author: String = "",
 
     @get: NotNull
@@ -27,6 +23,9 @@ data class Book (
 
     @get: NotNull
     val publisher: String = "",
+
+    @get: NotNull
+    val bookInfos: List<BookInfo> = ArrayList(),
 
     var created_user: String = "",
 

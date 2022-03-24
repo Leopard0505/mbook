@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rest.api.mbook.repository.BookMapper">
-    <select id="findAll" resultType="com.rest.api.mbook.entity.Book">
+    <resultMap id="book" type="com.rest.api.mbook.entity.Book">
+        <id property="book_id" column="book_book_id" />
+        <result property="title" column="book_title" />
+        <result property="original_author" column="book_original_author" />
+        <result property="drawer" column="book_drawer" />
+        <result property="publisher" column="book_publisher" />
+        <result property="created_user" column="book_created_user" />
+        <result property="updated_user" column="book_updated_user" />
+        <collection property="bookInfos" ofType="com.rest.api.mbook.entity.BookInfo">
+            <id property="book_info_id" column="book_info_book_info_id" />
+            <result property="book_id" column="book_info_book_id" />
+            <result property="title" column="book_info_title" />
+            <result property="release_date" column="book_info_release_date" />
+            <result property="created_user" column="book_info_created_user" />
+            <result property="updated_user" column="book_info_updated_user" />
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="book">
         SELECT
-            book_info.book_id,
-            book_info.title,
-            book_info.release_date,
-            books.original_author,
-            books.drawer,
-            books.publisher
+            books.book_id             AS book_book_id,
+            books.title               AS book_title,
+            books.original_author     AS book_original_author,
+            books.drawer              AS book_drawer,
+            books.publisher           AS book_publisher,
+            books.created_user        AS book_created_user,
+            books.updated_user        AS book_updated_user,
+            book_info.book_info_id    AS book_info_book_info_id,
+            book_info.book_id         AS book_info_book_id,
+            book_info.title           AS book_info_title,
+            book_info.release_date    AS book_info_release_date,
+            book_info.created_user    AS book_info_created_user,
+            book_info.updated_user    AS book_info_updated_user
         FROM user_books
             INNER JOIN book_info ON user_books.book_id = book_info.book_id
             INNER JOIN books ON user_books.book_id = books.book_id
