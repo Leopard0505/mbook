@@ -1,20 +1,5 @@
 import { useFetch } from "components/hooks/userFetch";
-
-interface BookInfo {
-  book_info_id: number
-  book_id: number
-  title: string
-  release_date: string
-  special_edition: boolean
-}
-interface Book {
-  book_id: number
-  title: string
-  original_author: string
-  drawer: string
-  publisher: string
-  bookInfos: BookInfo[]
-}
+import { Book } from "interfaces/book";
 
 function App() {
   const { data, isLoading, hasError, error } = useFetch<Book[]>({ url: 'http://localhost:8080/api/v1/books/' })
