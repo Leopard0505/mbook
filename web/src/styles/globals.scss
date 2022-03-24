@@ -1,0 +1,57 @@
+// Override
+// $option-css-variables: true;
+// $option-theme-trigger-media: true;
+// $option-theme-default: "dark";
+$option-add-style-form-focus: false;
+
+// Import
+@import 'musubii/src/scss/musubii.scss';
+
+html {
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+}
+
+html, body {
+    height: 100%;
+}
+
+#__next {
+    height: 100%;
+}
+
+.mbook-container {
+    height: -webkit-calc(100vh - 56px);
+    height: calc(100vh - 56px);
+}
+
+.mbook {
+    background-color: $black;
+}
+
+.mbook-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-strong;
+}
+
+.mbook-search {
+    height: 42px !important;
+    &:focus {
+        outline: 0px;
+    }
+}
+
+.mbook-border {
+    border-style: solid;
+    border-color: $grey-400;
+    border-width: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mbook-footer {
+    color: $grey-600;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

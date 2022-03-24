@@ -53,22 +53,27 @@ class AuthorizationInterceptor: HandlerInterceptor {
         if (authorization.indexOf("Bearer ") != 0) {
             return false
         }
-        // トークンを取得しidを取得する
-        val token = authorization.substring(7)
-        val id = authorizationService.getIdFromToken(token)
+        try {
+            // トークンを取得しidを取得する
+            val token = authorization.substring(7)
+            val id = authorizationService.getIdFromToken(token)
 
-        // idの検証を行う
-        if (Objects.isNull(id)) {
+            // idの検証を行う
+            if (Objects.isNull(id)) {
+                return false
+            }
+            val user: User = userService.find(Integer.parseInt(id))
+            logger.info("===========================")
+            logger.info(String.format("ユーザーID： %s", user.user_id))
+            logger.info(String.format("ユーザー名： %s", user.user_name))
+            logger.info(String.format("ユーザー権限： %s", user.getRole().name))
+            logger.info("===========================")
+            // コントローラでユーザー情報を受け取れるようにuser属性として渡す
+            request.setAttribute("user", user)
+        } catch (err: Exception) {
+            logger.warn(err.message)
             return false
         }
-        val user: User = userService.find(Integer.parseInt(id))
-        logger.info("===========================")
-        logger.info(String.format("ユーザーID： %s", user.user_id))
-        logger.info(String.format("ユーザー名： %s", user.user_name))
-        logger.info(String.format("ユーザー権限： %s", user.getRole().name))
-        logger.info("===========================")
-        // コントローラでユーザー情報を受け取れるようにuser属性として渡す
-        request.setAttribute("user", user)
         return true
     }
 

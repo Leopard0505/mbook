@@ -22,6 +22,9 @@ class AuthorizationController {
     @Autowired
     lateinit var authorizationService: AuthorizationService
 
+    /**
+     * アクセストークンを生成
+     */
     @PostMapping("/")
     @NonAuthorize
     fun generateToken(@RequestBody user: User): ResponseEntity<String> {

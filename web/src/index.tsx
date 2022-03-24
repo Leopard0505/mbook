@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import App from 'App';
+import Layout from 'components/common/Layout'
+
+import 'index.scss';
+import 'styles/globals.scss'
+
+import 'plugins/axios'
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Layout>
+      <App />
+    </Layout>
   </React.StrictMode>,
   document.getElementById('root')
 );
