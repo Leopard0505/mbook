@@ -29,4 +29,11 @@
             #{user.user_id}, #{book.book_id}, #{book.created_user}, #{book.updated_user}
         )
     </insert>
+    <insert id="register" useGeneratedKeys="true" keyProperty="book_info_id">
+        INSERT INTO
+            book_info(book_id, title, release_date, special_edition, created_user, updated_user)
+        VALUES (
+            #{book_id}, #{title}, #{release_date}, #{special_edition}, #{created_user}, #{updated_user}
+        )
+    </insert>
 </mapper>

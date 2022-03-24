@@ -2,15 +2,14 @@ package com.rest.api.mbook.controller
 
 import com.rest.api.mbook.annotation.NonAuthorize
 import com.rest.api.mbook.entity.User
-import com.rest.api.mbook.interceptor.AuthorizationInterceptor
+import com.rest.api.mbook.service.AuthorizationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
 
 
 /**
@@ -21,17 +20,16 @@ import java.util.*
 class AuthorizationController {
 
     @Autowired
-    lateinit var authorizationInterceptor: AuthorizationInterceptor
+    lateinit var authorizationService: AuthorizationService
 
     @PostMapping("/")
     @NonAuthorize
     fun generateToken(@RequestBody user: User): ResponseEntity<String> {
         // 加算される現在時間の取得(Calender型)
         val calendar = Calendar.getInstance()
-        // 日時を加算する
+        // 日時を加算する（10日）
         calendar.add(Calendar.DATE, 10)
-        // Calendar型の日時をDate型に変換
-        val token: String? = authorizationInterceptor.generateToken(user.user_id.toString(), calendar.time)
+        val token: String? = authorizationService.generateToken(user.user_id.toString(), calendar.time)
         return ResponseEntity.ok(token)
     }
 }

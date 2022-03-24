@@ -1,6 +1,7 @@
 package com.rest.api.mbook.repository
 
 import com.rest.api.mbook.entity.Book
+import com.rest.api.mbook.entity.BookInfo
 import com.rest.api.mbook.entity.User
 import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Param
@@ -19,7 +20,7 @@ interface BookMapper {
     fun findAll(user_id: Int): List<Book>
 
     /**
-     * 本情報を登録
+     * 本（マスタ）情報を登録
      * @param book: Book
      * @return 本情報ID
      */
@@ -31,4 +32,11 @@ interface BookMapper {
      * @param book: Book
      */
     fun createUserBooks(@Param("user") user: User, @Param("book") book: Book): Long
+
+    /**
+     * 本情報を登録
+     * @param bookInfo: BookInfo
+     * @return 本情報ID
+     */
+    fun register(bookInfo: BookInfo): Long
 }

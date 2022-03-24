@@ -1,6 +1,7 @@
 package com.rest.api.mbook.service
 
 import com.rest.api.mbook.entity.Book
+import com.rest.api.mbook.entity.BookInfo
 import com.rest.api.mbook.entity.User
 import com.rest.api.mbook.repository.BookMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +25,7 @@ class BookService {
     }
 
     /**
-     * 本情報を登録
+     * 本（マスタ）情報を登録
      * @param user: User
      * @param book: Book
      * @return 本情報ID
@@ -36,5 +37,18 @@ class BookService {
         bookMapper.create(book)
         bookMapper.createUserBooks(user, book)
         return book.book_id
+    }
+
+    /**
+     * 本情報を登録
+     * @param user: User
+     * @param bookInfo: BookInfo
+     * @return 本情報ID
+     */
+    fun register(user: User, bookInfo: BookInfo): Long {
+        bookInfo.created_user = user.user_name
+        bookInfo.updated_user = user.user_name
+        bookMapper.register(bookInfo)
+        return bookInfo.book_info_id
     }
 }

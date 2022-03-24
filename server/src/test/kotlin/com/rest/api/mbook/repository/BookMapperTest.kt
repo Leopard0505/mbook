@@ -1,11 +1,13 @@
 package com.rest.api.mbook.repository
 
 import com.rest.api.mbook.entity.Book
+import com.rest.api.mbook.entity.BookInfo
 import com.rest.api.mbook.entity.User
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest
 import org.springframework.beans.factory.annotation.Autowired
+import java.util.Date
 
 /**
  * 本情報テスト
@@ -23,7 +25,7 @@ class BookMapperTest {
         assert(0 <= bookList.size)
     }
 
-    @DisplayName("本情報を登録するテスト")
+    @DisplayName("本（マスタ）情報を登録するテスト")
     @Test
     fun create() {
         val book = Book(title = "タイトル", original_author = "原作者", drawer = "作画",
@@ -39,5 +41,14 @@ class BookMapperTest {
         val book = Book(book_id = 2, created_user = "SYSTEM", updated_user = "SYSTEM")
         bookMapper.createUserBooks(user, book)
         assert(true)
+    }
+
+    @DisplayName("本情報を登録するテスト")
+    @Test
+    fun register() {
+        val bookInfo = BookInfo(book_id = 1, title = "タイトル", release_date = "2022-03-24",
+            special_edition = false, created_user = "SYSTEM", updated_user = "SYSTEM")
+        bookMapper.register(bookInfo)
+        assert(bookInfo.book_info_id.equals(25L))
     }
 }

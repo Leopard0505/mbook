@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `book_info` (
     book_info_id int(11) unsigned AUTO_INCREMENT NOT NULL,
     book_id int(11) unsigned NOT NULL,
     title VARCHAR(200) NOT NULL,
-    release_date VARCHAR(13) NOT NULL,
+    release_date VARCHAR(10) NOT NULL,
     special_edition BOOLEAN NOT NULL DEFAULT 0,
     created_user VARCHAR(100) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

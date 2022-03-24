@@ -3,6 +3,7 @@ package com.rest.api.mbook.interceptor
 import com.rest.api.mbook.annotation.Authorize
 import com.rest.api.mbook.annotation.NonAuthorize
 import com.rest.api.mbook.entity.User
+import com.rest.api.mbook.service.AuthorizationService
 import com.rest.api.mbook.service.UserService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
@@ -31,42 +32,11 @@ class AuthorizationInterceptor: HandlerInterceptor {
      */
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    /**
-     * 暗号化に使用するキー
-     */
-    val key: String = "1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a"
+    @Autowired
+    lateinit var authorizationService: AuthorizationService
 
     @Autowired
     lateinit var userService: UserService
-
-    /**
-     * JsonWebTokenを生成
-     * @param id: String ユーザー情報
-     * @param expiration: Date 有効期限
-     * @return JsonWebToken
-     */
-    fun generateToken(id: String?, expiration: Date?): String? {
-        return Jwts.builder()
-            .setSubject(id)
-            .setExpiration(expiration)
-            .signWith(Keys.hmacShaKeyFor(key.toByteArray(Charsets.UTF_8)))
-            .compact()
-    }
-
-    /**
-     * JsonWebTokenを解析
-     * @param token: String? JsonWebToken
-     * @param key: String 暗号化に使用したキー
-     * @return ユーザー情報
-     */
-    private fun getIdFromToken(token: String?, key: String): String? {
-        return Jwts.parserBuilder()
-            .setSigningKey(Keys.hmacShaKeyFor(key.toByteArray(Charsets.UTF_8)))
-            .build()
-            .parseClaimsJws(token)
-            .body
-            .subject
-    }
 
     /**
      * 認可処理
@@ -85,7 +55,7 @@ class AuthorizationInterceptor: HandlerInterceptor {
         }
         // トークンを取得しidを取得する
         val token = authorization.substring(7)
-        val id = getIdFromToken(token, key)
+        val id = authorizationService.getIdFromToken(token)
 
         // idの検証を行う
         if (Objects.isNull(id)) {
