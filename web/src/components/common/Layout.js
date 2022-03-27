@@ -12,7 +12,7 @@ function Layout({ children }) {
                 <div className="column is-2">
                     <Sidemenu></Sidemenu>
                 </div>
-                <div className="column is-10 box is-outline-left">
+                <div className="mbook-content column is-10 box is-outline-left">
                     <main>{children}</main>
                     <Footer></Footer>
                 </div>

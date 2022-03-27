@@ -33,10 +33,13 @@
             book_info.release_date    AS book_info_release_date,
             book_info.created_user    AS book_info_created_user,
             book_info.updated_user    AS book_info_updated_user
-        FROM user_books
-            INNER JOIN book_info ON user_books.book_id = book_info.book_id
-            INNER JOIN books ON user_books.book_id = books.book_id
+        FROM books
+            INNER JOIN user_books ON books.book_id = user_books.book_id
+            LEFT OUTER JOIN book_info ON books.book_id = book_info.book_id
         WHERE user_books.user_id = #{user_id}
+        <if test="title != null">
+            AND books.title LIKE CONCAT('%', #{title}, '%')
+        </if>
         ORDER BY book_info.release_date
     </select>
     <insert id="create" useGeneratedKeys="true" keyProperty="book_id">

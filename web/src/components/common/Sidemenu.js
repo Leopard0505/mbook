@@ -3,18 +3,13 @@ function Sidemenu() {
         <nav>
             <ul className="is-padding-md">
                 <li className="is-padding-xxs">
-                    <span className="text">購読本</span>
-                    <ul className="is-padding-left-md">
-                        <li className="is-padding-xxs">
-                            <a href="/" className="text">購読本一覧</a>
-                        </li>
-                        <li className="is-padding-xxs">
-                            <a href="/new" className="text">購読本登録</a>
-                        </li>
-                        <li className="is-padding-xxs">
-                            <a href="/books/new" className="text">購読本（マスタ）登録</a>
-                        </li>
-                    </ul>
+                    <a href="/" className="text is-success">購読本一覧</a>
+                </li>
+                <li className="is-padding-xxs">
+                    <a href="/books/register" className="text is-success">購読本登録</a>
+                </li>
+                <li className="is-padding-xxs">
+                    <a href="/books/create" className="text is-success">購読本（マスタ）登録</a>
                 </li>
                 <hr className="mbook-border"></hr>
                 <li className="is-padding-xxs">

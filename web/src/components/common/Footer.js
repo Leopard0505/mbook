@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer className="mbook-footer box is-padding-md is-flex is-center">
+        <footer className="mbook-footer box is-padding-md">
             Powered by{' '}
             <span>
                 mbook

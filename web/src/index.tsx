@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from 'App';
+import { RouterConfig } from 'router-config'
+import 'plugins/axios'
+
 import Layout from 'components/common/Layout'
 
 import 'index.scss';
 import 'styles/globals.scss'
-
-import 'plugins/axios'
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Layout>
-      <App />
+      <RouterConfig />
     </Layout>
   </React.StrictMode>,
   document.getElementById('root')

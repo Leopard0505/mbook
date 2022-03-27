@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletRequest
 
@@ -30,10 +31,10 @@ class BookController {
      */
     @GetMapping("/")
     @Authorize
-    fun findAll(request: HttpServletRequest): ResponseEntity<List<Book>> {
+    fun findAll(request: HttpServletRequest, @RequestParam("title", required = false) title: String?): ResponseEntity<List<Book>> {
         // AuthorizationInterceptorで渡したuser属性を受け取る
         val user = request.getAttribute("user") as User
-        val bookList = bookService.findAll(user.user_id.toInt())
+        val bookList = bookService.findAll(user.user_id.toInt(), title)
         return ResponseEntity.ok().body(bookList)
     }
 

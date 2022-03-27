@@ -1,8 +1,19 @@
+import React from "react";
 import { useFetch } from "components/hooks/userFetch";
 import { Book } from "interfaces/book";
+import { useLocation } from "react-router-dom";
 
-function App() {
-  const { data, isLoading, hasError, error } = useFetch<Book[]>({ url: 'http://localhost:8080/api/v1/books/' })
+const App: React.VFC = () => {
+  const useQueryString = () => {
+    const search = useLocation().search
+    const queryString = new URLSearchParams(search)
+    const query = queryString.get('title') != null ? `?title=${queryString.get('title')}` : ''
+    return query
+  }
+  const query = useQueryString()
+  const { data, isLoading, hasError, error } = useFetch<Book[]>({
+    url: 'http://localhost:8080/api/v1/books/' + query
+  })
 
   if (isLoading) {
     return <div>Loading ...</div>
@@ -37,9 +48,9 @@ function App() {
             return book.bookInfos.map((bookInfo) => (
               <tr key={bookInfo.book_info_id}>
                 <td>{bookInfo.title}</td>
-                <td>{book.original_author}</td>
-                <td>{book.publisher}</td>
-                <td>{bookInfo.release_date}</td>
+                <td className="text is-right">{book.original_author}</td>
+                <td className="text is-right">{book.publisher}</td>
+                <td className="text is-right">{bookInfo.release_date}</td>
               </tr>
             ))
           })}

@@ -36,6 +36,6 @@ class WebMvcConfig: WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins("http://localhost:3000")
             .allowedMethods("GET", "POST")
-            .allowedHeaders("Authorization")
+            .allowedHeaders("Authorization", "Content-Type")
     }
 }

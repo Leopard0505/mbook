@@ -1,24 +1,29 @@
+import React, { useState } from "react"
 import { usePost } from "components/hooks/usePost"
 import { Book } from "interfaces/book"
 
-function RegisterBook() {
+const CreateBook: React.VFC = () => {
   const { doPost, isLoading } = usePost<Book>({
     method: 'post',
     url: 'http://localhost:8080/api/v1/books/create'
   })
+  const [title, setTitle] = useState('')
+  const [originalAuthor, setOriginalAuthor] = useState('')
+  const [drawer, setDrawer] = useState('')
+  const [publisher, setPublisher] = useState('')
 
   if (isLoading) {
     return <div>Loading ...</div>
   }
 
-  const onFormSubmit = (event: any) => {
+  const onFormSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     doPost({
       params: {
-        title: event.target.title.value,
-        original_author: event.target.original_author.value,
-        drawer: event.target.drawer.value,
-        publisher: event.target.publisher.value,
+        title: title,
+        original_author: originalAuthor,
+        drawer: drawer,
+        publisher: publisher,
       },
       onSuccess: (book) => {
         console.log(`create [${book?.title}] success!`)
@@ -43,7 +48,7 @@ function RegisterBook() {
               </label>
             </div>
             <div className="column is-9">
-              <input className="input is-underline" id="title" type="text" name="title" placeholder="作品名" />
+              <input className="input is-underline" id="title" type="text" name="title" placeholder="作品名" value={title} onChange={(event) => setTitle(event.target.value)} />
             </div>
 
             <div className="column is-3">
@@ -52,7 +57,7 @@ function RegisterBook() {
               </label>
             </div>
             <div className="column is-9">
-              <input className="input is-underline" id="original_author" type="text" name="original_author" placeholder="原作者" />
+              <input className="input is-underline" id="original_author" type="text" name="original_author" placeholder="原作者" value={originalAuthor} onChange={(event) => setOriginalAuthor(event.target.value)} />
             </div>
 
             <div className="column is-3">
@@ -61,7 +66,7 @@ function RegisterBook() {
               </label>
             </div>
             <div className="column is-9">
-              <input className="input is-underline" id="drawer" type="text" name="drawer" placeholder="著者" />
+              <input className="input is-underline" id="drawer" type="text" name="drawer" placeholder="著者" value={drawer} onChange={(event) => setDrawer(event.target.value)} />
             </div>
 
             <div className="column is-3">
@@ -70,7 +75,7 @@ function RegisterBook() {
               </label>
             </div>
             <div className="column is-9">
-              <input className="input is-underline" id="publisher" type="text" name="publisher" placeholder="出版社" />
+              <input className="input is-underline" id="publisher" type="text" name="publisher" placeholder="出版社" value={publisher} onChange={(event) => setPublisher(event.target.value)} />
             </div>
           </div>
           <div className="box">
@@ -82,4 +87,4 @@ function RegisterBook() {
   )
 }
 
-export default RegisterBook;
+export default CreateBook;
