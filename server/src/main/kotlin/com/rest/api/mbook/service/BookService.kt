@@ -21,10 +21,11 @@ class BookService {
      * 本情報一覧を取得
      * @param user_id: Int
      * @param title: String?
+     * @param publisher: String?
      * @return 本情報一覧
      */
-    fun findAll(user_id: Int, title: String?): List<Book> {
-        return bookMapper.findAll(user_id, title)
+    fun findAll(user_id: Int, title: String?, publisher: String?): List<Book> {
+        return bookMapper.findAll(user_id, title, publisher)
     }
 
     /**

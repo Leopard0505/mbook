@@ -16,9 +16,10 @@ interface BookMapper {
      * 本情報一覧を取得
      * @param user_id: Int
      * @param title: String?
+     * @param publisher: String?
      * @return 本情報一覧
      */
-    fun findAll(@Param("user_id") user_id: Int, @Param("title") title: String?): List<Book>
+    fun findAll(@Param("user_id") user_id: Int, @Param("title") title: String?, @Param("publisher") publisher: String?): List<Book>
 
     /**
      * 本（マスタ）情報を登録

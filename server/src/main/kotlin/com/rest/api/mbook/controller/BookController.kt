@@ -31,10 +31,12 @@ class BookController {
      */
     @GetMapping("/")
     @Authorize
-    fun findAll(request: HttpServletRequest, @RequestParam("title", required = false) title: String?): ResponseEntity<List<Book>> {
+    fun findAll(request: HttpServletRequest,
+                @RequestParam("title", required = false) title: String?,
+                @RequestParam("publisher", required = false) publisher: String?): ResponseEntity<List<Book>> {
         // AuthorizationInterceptorで渡したuser属性を受け取る
         val user = request.getAttribute("user") as User
-        val bookList = bookService.findAll(user.user_id.toInt(), title)
+        val bookList = bookService.findAll(user.user_id.toInt(), title, publisher)
         return ResponseEntity.ok().body(bookList)
     }
 

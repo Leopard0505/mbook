@@ -40,6 +40,9 @@
         <if test="title != null">
             AND books.title LIKE CONCAT('%', #{title}, '%')
         </if>
+        <if test="publisher != null">
+            AND books.publisher LIKE CONCAT('%', #{publisher}, '%')
+        </if>
         ORDER BY book_info.release_date
     </select>
     <insert id="create" useGeneratedKeys="true" keyProperty="book_id">

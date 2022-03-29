@@ -1,18 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useFetch } from "components/hooks/userFetch";
+import { useQueryString } from "components/hooks/useQueryString";
 import { Book } from "interfaces/book";
-import { useLocation } from "react-router-dom";
 
 const App: React.VFC = () => {
-  const useQueryString = () => {
-    const search = useLocation().search
-    const queryString = new URLSearchParams(search)
-    const query = queryString.get('title') != null ? `?title=${queryString.get('title')}` : ''
-    return query
-  }
-  const query = useQueryString()
+  const querystring = useQueryString({ params: ['title', 'publisher'] })
   const { data, isLoading, hasError, error } = useFetch<Book[]>({
-    url: 'http://localhost:8080/api/v1/books/' + query
+    url: 'http://localhost:8080/api/v1/books/' + querystring
   })
 
   if (isLoading) {
@@ -39,6 +34,7 @@ const App: React.VFC = () => {
           <tr>
             <th>タイトル</th>
             <th>著者名</th>
+            <th>作画</th>
             <th>出版社</th>
             <th>発売日</th>
           </tr>
@@ -49,7 +45,12 @@ const App: React.VFC = () => {
               <tr key={bookInfo.book_info_id}>
                 <td>{bookInfo.title}</td>
                 <td className="text is-right">{book.original_author}</td>
-                <td className="text is-right">{book.publisher}</td>
+                <td className="text is-right">{book.drawer}</td>
+                <td className="text is-right">
+                  <Link className="text is-success is-weight-700" to={{
+                    search: `?publisher=${book.publisher}`
+                  }}>{book.publisher}</Link>
+                </td>
                 <td className="text is-right">{bookInfo.release_date}</td>
               </tr>
             ))
