@@ -17,4 +17,15 @@
             INNER JOIN role ON role.role_id = user_role.role_id
         WHERE users.user_id = #{user_id}
     </select>
+
+    <select id="findByName" resultMap="user">
+        SELECT
+            users.user_id,
+            users.user_name,
+            role.role_id
+        FROM users
+            INNER JOIN user_role ON users.user_id = user_role.user_id
+            INNER JOIN role ON role.role_id = user_role.role_id
+        WHERE users.user_name = #{username}
+    </select>
 </mapper>

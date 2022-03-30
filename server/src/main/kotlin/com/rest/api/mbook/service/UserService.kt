@@ -28,4 +28,17 @@ class UserService {
         }
         return user
     }
+
+    /**
+     * ユーザー情報を取得
+     * @param username: String
+     * @return ユーザー情報
+     */
+    fun find(username: String): User {
+        val user = userMapper.findByName(username)
+        if (Objects.isNull(user)) {
+            throw NotFoundException(String.format("user_name: %s is not found.", username))
+        }
+        return user
+    }
 }

@@ -15,4 +15,11 @@ interface UserMapper {
      * @return ユーザー情報
      */
     fun find(user_id: Int): User
+
+    /**
+     * ユーザー情報を取得
+     * @param username: String
+     * @return ユーザー情報
+     */
+    fun findByName(username: String): User
 }
