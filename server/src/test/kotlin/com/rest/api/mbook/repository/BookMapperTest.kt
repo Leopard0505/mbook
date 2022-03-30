@@ -21,7 +21,30 @@ class BookMapperTest {
     @DisplayName("本情報一覧を取得するテスト")
     @Test
     fun findAll() {
-        val bookList: List<Book> = bookMapper.findAll(1)
+        val userId = 1
+        val title = null
+        val publisher = null
+        val bookList: List<Book> = bookMapper.findAll(userId, title, publisher)
+        assert(0 <= bookList.size)
+    }
+
+    @DisplayName("本情報一覧をtitleパラメータで絞り込み取得するテスト")
+    @Test
+    fun findAllByTitleParam() {
+        val userId = 1
+        val title = "ノーライフ"
+        val publisher = null
+        val bookList: List<Book> = bookMapper.findAll(userId, title, publisher)
+        assert(0 <= bookList.size)
+    }
+
+    @DisplayName("本情報一覧をpublisherパラメータで絞り込み取得するテスト")
+    @Test
+    fun findAllByPublisherParam() {
+        val userId = 1
+        val title = null
+        val publisher = "KADOKAWA"
+        val bookList: List<Book> = bookMapper.findAll(userId, title, publisher)
         assert(0 <= bookList.size)
     }
 
