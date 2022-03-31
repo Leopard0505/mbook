@@ -34,20 +34,38 @@ const Login: React.VFC = () => {
 
   return (
     <div className="box is-padding-md">
-      login
-      <form onSubmit={onFormSubmit}>
-        <div>
-          ユーザー名：
-          <input className="input is-underline" id="username" type="text" name="username" placeholder="ユーザー名" value={username} onChange={(event) => setUsername(event.target.value)} />
+      <div className="card is-outline is-radius-sm" style={{"width": "500px", "margin": "auto"}}>
+        <div className="box is-padding-md">
+          <div className="box is-padding-md">
+            <span className="text is-weight-900 is-xxl">MBOOK</span>
+          </div>
+          <form onSubmit={onFormSubmit}>
+            <div className="box is-padding-md">
+              <div>
+                <label htmlFor="username">ユーザー名</label>
+              </div>
+              <div>
+              <input className="input is-underline" id="username" type="text" name="username"
+                placeholder="ex: MB00001" value={username} onChange={(event) => setUsername(event.target.value)}
+                style={{"width": "300px"}} />
+              </div>
+            </div>
+            <div className="box is-padding-md">
+              <div>
+                <label htmlFor="password">パスワード</label>
+              </div>
+              <div>
+                <input className="input is-underline" id="password" type="password" name="password"
+                  placeholder="ex: mb00001" value={password} onChange={(event) => setPassword(event.target.value)}
+                  style={{"width": "300px"}} />
+              </div>
+            </div>
+            <div className="box is-margin-top-md is-padding-md">
+              <button className="button is-plain is-success" type="submit">登録</button>
+            </div>
+          </form>
         </div>
-        <div>
-          パスワード：
-          <input className="input is-underline" id="password" type="password" name="password" placeholder="パスワード" value={password} onChange={(event) => setPassword(event.target.value)} />
-        </div>
-        <div className="box">
-          <button className="button is-plain is-success" type="submit">登録</button>
-        </div>
-      </form>
+      </div>
     </div>
   )
 }
