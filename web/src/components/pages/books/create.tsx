@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
 import { Book } from "interfaces/book"
 
@@ -11,6 +12,7 @@ const CreateBook: React.VFC = () => {
   const [originalAuthor, setOriginalAuthor] = useState('')
   const [drawer, setDrawer] = useState('')
   const [publisher, setPublisher] = useState('')
+  const navigate = useNavigate()
 
   if (isLoading) {
     return <div>Loading ...</div>
@@ -27,7 +29,7 @@ const CreateBook: React.VFC = () => {
       },
       onSuccess: (book) => {
         console.log(`create [${book?.title}] success!`)
-        // TODO 画面遷移
+        navigate("/")
       },
       onError: (err) => {
         console.log(err.message)

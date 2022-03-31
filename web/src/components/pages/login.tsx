@@ -1,5 +1,6 @@
-import { usePost } from "components/hooks/usePost"
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { usePost } from "components/hooks/usePost"
 
 const Login: React.VFC = () => {
   const { doPost, isLoading } = usePost<string>({
@@ -8,6 +9,7 @@ const Login: React.VFC = () => {
   })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   if (isLoading) {
     return <div>Loading ...</div>
@@ -24,7 +26,7 @@ const Login: React.VFC = () => {
         if (token === undefined) return
         console.log(`create [${token}] success!`)
         localStorage.setItem('MBOOK_ACCESS_TOKEN', token)
-        // TODO 画面遷移
+        navigate("/")
       },
       onError: (err) => {
         console.log(err.message)
