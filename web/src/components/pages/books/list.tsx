@@ -5,7 +5,7 @@ import { useQueryString } from "components/hooks/useQueryString";
 import Layout from "components/common/Layout";
 import { Book } from "interfaces/book";
 
-const App: React.VFC = () => {
+const BookList: React.VFC = () => {
   const querystring = useQueryString({ params: ['title', 'publisher'] })
   const { data, isLoading, hasError, error } = useFetch<Book[]>({
     url: 'http://localhost:8080/api/v1/books/' + querystring
@@ -64,4 +64,4 @@ const App: React.VFC = () => {
   )
 }
 
-export default App;
+export default BookList;

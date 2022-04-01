@@ -6,7 +6,7 @@ import Layout from "components/common/Layout"
 import { Book } from "interfaces/book"
 
 
-const RegisterBook: React.VFC = () => {
+const BookRegister: React.VFC = () => {
   const { data, isLoading, hasError, error } = useFetch<Book[]>({ url: 'http://localhost:8080/api/v1/books/' })
   const { doPost, isLoading: isPostLoading } = usePost<Book>({
     method: 'post'
@@ -116,4 +116,4 @@ const RegisterBook: React.VFC = () => {
   )
 }
 
-export default RegisterBook;
+export default BookRegister;

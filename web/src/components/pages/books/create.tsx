@@ -4,7 +4,7 @@ import { usePost } from "components/hooks/usePost"
 import Layout from "components/common/Layout"
 import { Book } from "interfaces/book"
 
-const CreateBook: React.VFC = () => {
+const BookCreate: React.VFC = () => {
   const { doPost, isLoading } = usePost<Book>({
     method: 'post',
     url: 'http://localhost:8080/api/v1/books/create'
@@ -92,4 +92,4 @@ const CreateBook: React.VFC = () => {
   )
 }
 
-export default CreateBook;
+export default BookCreate;

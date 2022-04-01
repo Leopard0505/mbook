@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "App";
-import CreateBook from "components/pages/books/create";
-import RegisterBook from "components/pages/books/register";
+import BookList from "components/pages/books/list";
+import BookCreate from "components/pages/books/create";
+import BookRegister from "components/pages/books/register";
 import Login from "components/pages/login";
 
 export const RouterConfig: React.VFC = () => {
@@ -10,9 +10,9 @@ export const RouterConfig: React.VFC = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<App />} />
-          <Route path="/books/register" element={<RegisterBook />} />
-          <Route path="/books/create" element={<CreateBook />} />
+          <Route index element={<BookList />} />
+          <Route path="/books/register" element={<BookRegister />} />
+          <Route path="/books/create" element={<BookCreate />} />
 
           <Route path="/login" element={<Login />} />
         </Routes>
