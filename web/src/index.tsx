@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import { RouterConfig } from 'router-config'
 import 'plugins/axios'
 
-import Layout from 'components/common/Layout'
-
 import 'index.scss';
 import 'styles/globals.scss'
 
@@ -13,9 +11,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Layout>
-      <RouterConfig />
-    </Layout>
+    <RouterConfig />
   </React.StrictMode>,
   document.getElementById('root')
 );
