@@ -22,7 +22,7 @@ TO DO
 4. `web`ディレクトリに移動し、フロントエンドを立ち上げる
 
 ## Contact
-Hyoga Kishikawa <<k.9975hyo5@gmail.com>>
+Leopard0505 <<k.9975hyo5@gmail.com>>
 
 ## Contributors
 - Leopard0505
