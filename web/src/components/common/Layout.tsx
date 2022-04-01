@@ -1,9 +1,10 @@
+import React from "react"
 // import Head from './Head'
 import Header from './Header'
 import Sidemenu from './Sidemenu'
 import Footer from './Footer'
 
-function Layout({ children }) {
+const Layout: React.VFC<{children: React.ReactNode}> = ({ children }) => {
     return (
         <>
             {/* <Head></Head> */}

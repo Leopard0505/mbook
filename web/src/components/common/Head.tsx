@@ -1,4 +1,6 @@
-function CustomHead() {
+import React from "react"
+
+const CustomHead: React.VFC = () => {
     return (
         <head>
             <title>Create Next App</title>

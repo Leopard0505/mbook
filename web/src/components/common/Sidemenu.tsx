@@ -1,4 +1,6 @@
-function Sidemenu() {
+import React from "react"
+
+const Sidemenu: React.VFC = () => {
     return (
         <nav>
             <ul className="is-padding-md">
