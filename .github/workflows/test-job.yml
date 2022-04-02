@@ -19,14 +19,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
       - name: "現在のルート"
         run: pwd
 
       - name: "serverディレクトリに移動"
         run: cd server
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
 
       - name: "Setup Java"
         uses: actions/setup-java@v1
