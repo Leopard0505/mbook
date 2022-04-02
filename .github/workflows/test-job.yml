@@ -20,7 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: "現在のルート"
-        run: ls
+        run: pwd
 
       - name: "serverディレクトリに移動"
         run: cd server
