@@ -1,3 +1,5 @@
+[![Gradle Test](https://github.com/Leopard0505/mbook/actions/workflows/test-job.yml/badge.svg?branch=main)](https://github.com/Leopard0505/mbook/actions/workflows/test-job.yml)
+
 # MBOOK
 このリポジトリは、本を管理するアプリケーション。
 基本的には個人的な勉強のために使っています。
