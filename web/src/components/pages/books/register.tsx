@@ -3,10 +3,15 @@ import { useNavigate } from "react-router-dom"
 import { useFetch } from "components/hooks/userFetch"
 import { usePost } from "components/hooks/usePost"
 import Layout from "components/common/Layout"
+import { useAuth } from "components/hooks/useAuth"
 import { Book } from "interfaces/book"
 
-
 const BookRegister: React.VFC = () => {
+  const navigate = useNavigate()
+  const { isAuth } = useAuth()
+  if (!isAuth()) {
+    navigate("/login")
+  }
   const { data, isLoading, hasError, error } = useFetch<Book[]>({ url: 'http://localhost:8080/api/v1/books/' })
   const { doPost, isLoading: isPostLoading } = usePost<Book>({
     method: 'post'
@@ -14,7 +19,6 @@ const BookRegister: React.VFC = () => {
   const [bookId, setBookId] = useState('')
   const [roll, setRoll] = useState('')
   const [releaseDate, setReleaseDate] = useState('')
-  const navigate = useNavigate()
 
   if (isLoading || isPostLoading) {
     return <div>Loading ...</div>

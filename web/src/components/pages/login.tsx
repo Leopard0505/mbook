@@ -1,15 +1,20 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
+import { useAuth } from "components/hooks/useAuth"
 
 const Login: React.VFC = () => {
+  const navigate = useNavigate()
+  const { isAuth } = useAuth()
+  if (isAuth()) {
+    navigate("/")
+  }
   const { doPost, isLoading } = usePost<string>({
     method: 'post',
     url: 'http://localhost:8080/api/v1/auth/token'
   })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
 
   if (isLoading) {
     return <div>Loading ...</div>
