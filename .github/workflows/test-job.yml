@@ -22,12 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: "serverディレクトリに移動"
-        run: |
-          cd server
-          pwd
-          ls
-
+      # Setup Java
       - name: "Setup Java"
         uses: actions/setup-java@v1
         with:
@@ -35,4 +30,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Test with Gradle
-        run: ./gradlew test
+        run: |
+          cd server
+          ./gradlew test
