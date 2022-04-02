@@ -28,6 +28,9 @@ jobs:
       - name: "serverディレクトリに移動"
         run: cd server
 
+      - name: "ディレクトリ内のファイルを表示"
+        run: ls
+
       - name: "Setup Java"
         uses: actions/setup-java@v1
         with:
