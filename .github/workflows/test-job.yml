@@ -24,8 +24,8 @@ jobs:
 
       - name: "serverディレクトリに移動"
         run: |
-          cd server,
-          pwd,
+          cd server
+          pwd
           ls
 
       - name: "Setup Java"
