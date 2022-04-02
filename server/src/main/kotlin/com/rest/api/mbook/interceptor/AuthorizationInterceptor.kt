@@ -45,7 +45,7 @@ class AuthorizationInterceptor: HandlerInterceptor {
      */
     private fun authorize(request: HttpServletRequest): Boolean {
         // Authorizationの値を取得
-        val authorization: String = request.getHeader("Authorization")
+        val authorization: String? = request.getHeader("Authorization")
         if (authorization == null || authorization.isEmpty()) {
             return false
         }
