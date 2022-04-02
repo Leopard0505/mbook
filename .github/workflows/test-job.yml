@@ -22,20 +22,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: "現在のルート1"
-        run: pwd
-
-      - name: "ディレクトリ内のファイルを表示1"
-        run: ls
-
       - name: "serverディレクトリに移動"
-        run: cd server
-
-      - name: "現在のルート2"
-        run: pwd
-
-      - name: "ディレクトリ内のファイルを表示2"
-        run: ls
+        run: |
+          cd server,
+          pwd,
+          ls
 
       - name: "Setup Java"
         uses: actions/setup-java@v1
