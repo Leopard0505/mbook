@@ -19,6 +19,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: "現在のルート"
+        run: ls
+
+      - name: "serverディレクトリに移動"
+        run: cd server
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
@@ -29,4 +35,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Test with Gradle
-        run: ./server/gradlew test
+        run: ./gradlew test
