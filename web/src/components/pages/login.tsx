@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
 import { useAuth } from "components/hooks/useAuth"
+import Loader from "components/common/Loader"
 
 const Login: React.VFC = () => {
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ const Login: React.VFC = () => {
   const [password, setPassword] = useState('')
 
   if (isLoading) {
-    return <div>Loading ...</div>
+    return <Loader />
   }
 
   const onFormSubmit = (event: React.FormEvent) => {

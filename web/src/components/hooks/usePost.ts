@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import axios, { AxiosError, AxiosResponse, Method } from 'axios'
+import wait from 'plugins/wait'
 
 interface Params {
   [key: string]: any
@@ -54,6 +55,7 @@ export function usePost<T> ({
       }
       try {
         setLoading(true)
+        await wait(1000)
         const res: AxiosResponse<T> = await axios.request({
           method: args?.method ?? methodInternal,
           url: reqUrl,

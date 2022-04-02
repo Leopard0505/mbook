@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
 import Layout from "components/common/Layout"
+import Loader from "components/common/Loader"
 import { useAuth } from "components/hooks/useAuth"
 import { Book } from "interfaces/book"
 
@@ -21,7 +22,11 @@ const BookCreate: React.VFC = () => {
   const [publisher, setPublisher] = useState('')
 
   if (isLoading) {
-    return <div>Loading ...</div>
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    )
   }
 
   const onFormSubmit = (event: React.FormEvent) => {

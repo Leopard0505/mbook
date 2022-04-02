@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFetch } from "components/hooks/userFetch";
 import { useQueryString } from "components/hooks/useQueryString";
 import Layout from "components/common/Layout";
+import Loader from "components/common/Loader";
 import { useAuth } from "components/hooks/useAuth";
 import { Book } from "interfaces/book";
 
@@ -18,7 +19,11 @@ const BookList: React.VFC = () => {
   })
 
   if (isLoading) {
-    return <div>Loading ...</div>
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    )
   }
 
   return (

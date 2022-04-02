@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import BookList from "components/pages/books/list";
-import BookCreate from "components/pages/books/create";
-import BookRegister from "components/pages/books/register";
-import Login from "components/pages/login";
+import BookList from "components/pages/books/BookList";
+import BookCreate from "components/pages/books/BookCreate";
+import BookRegister from "components/pages/books/BookRegister";
+import Login from "components/pages/Login";
 
 export const RouterConfig: React.VFC = () => {
   return (

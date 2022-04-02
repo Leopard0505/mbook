@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import axios, { AxiosError } from "axios";
+import wait from "plugins/wait";
 
 interface FetchRequest<T> {
   url: string
@@ -50,7 +51,7 @@ export function useFetch<T> ({
     async <T>(args?: RefetchArgs<T>) => {
       try {
         setLoading(true)
-
+        await wait(1000)
         const axiosInstance = axios['get']
         const res = await axiosInstance(`${memoizeUrl}`, {
           headers: {

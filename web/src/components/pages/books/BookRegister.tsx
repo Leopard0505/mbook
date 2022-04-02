@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useFetch } from "components/hooks/userFetch"
 import { usePost } from "components/hooks/usePost"
 import Layout from "components/common/Layout"
+import Loader from "components/common/Loader"
 import { useAuth } from "components/hooks/useAuth"
 import { Book } from "interfaces/book"
 
@@ -21,7 +22,11 @@ const BookRegister: React.VFC = () => {
   const [releaseDate, setReleaseDate] = useState('')
 
   if (isLoading || isPostLoading) {
-    return <div>Loading ...</div>
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    )
   }
 
   const doFormSubmit = (event: React.FormEvent) => {

@@ -15,7 +15,7 @@ axios.interceptors.request.use(
 )
 
 // アクセストークンを再取得
-const refreshToken = () => {
+export const refreshToken = () => {
   // processing
   const axiosInstance = axios['post']
   axiosInstance('http://localhost:8080/api/v1/auth/', { user_id: 1 })
@@ -35,7 +35,7 @@ axios.interceptors.response.use(
   },
   error => {
     if (error.response.status === 403) {
-      refreshToken()
+      // refreshToken()
     }
   }
 )
