@@ -3,8 +3,9 @@ import React from "react"
 import Header from './Header'
 import Sidemenu from './Sidemenu'
 import Footer from './Footer'
+import { Outlet } from "react-router-dom"
 
-const Layout: React.VFC<{children: React.ReactNode}> = ({ children }) => {
+const Layout: React.VFC<{children?: React.ReactNode}> = () => {
     return (
         <>
             {/* <Head></Head> */}
@@ -14,7 +15,7 @@ const Layout: React.VFC<{children: React.ReactNode}> = ({ children }) => {
                     <Sidemenu></Sidemenu>
                 </div>
                 <div className="mbook-content column is-10 box is-outline-left">
-                    <main>{children}</main>
+                    <main><Outlet /></main>
                     <Footer></Footer>
                 </div>
             </div>
