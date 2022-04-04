@@ -2,15 +2,10 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
-import { useAuth } from "components/hooks/useAuth"
 import { Book } from "interfaces/book"
 
 const BookCreate: React.VFC = () => {
   const navigate = useNavigate()
-  const { isAuth } = useAuth()
-  if (!isAuth()) {
-    navigate("/login")
-  }
   const { doPost, isLoading } = usePost<Book>({
     method: 'post',
     url: 'http://localhost:8080/api/v1/books/create'

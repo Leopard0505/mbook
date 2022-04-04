@@ -1,17 +1,11 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFetch } from "components/hooks/userFetch";
 import { useQueryString } from "components/hooks/useQueryString";
 import Loader from "components/common/Loader";
-import { useAuth } from "components/hooks/useAuth";
 import { Book } from "interfaces/book";
 
 const BookList: React.VFC = () => {
-  const navigate = useNavigate()
-  const { isAuth } = useAuth()
-  if (!isAuth()) {
-    navigate("/login")
-  }
   const querystring = useQueryString({ params: ['title', 'publisher'] })
   const { data, isLoading, hasError, error } = useFetch<Book[]>({
     url: 'http://localhost:8080/api/v1/books/' + querystring

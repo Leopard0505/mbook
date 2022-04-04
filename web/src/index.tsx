@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Providers } from 'components/Providers';
 import { RouterConfig } from 'components/RouterConfig'
 import 'plugins/axios'
 
@@ -11,7 +12,9 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterConfig />
+    <Providers>
+      <RouterConfig />
+    </Providers>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,42 +1,56 @@
 import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
-import { useAuth } from "components/hooks/useAuth"
 import Loader from "components/common/Loader"
+import { AuthUserContextType, useAuthUserContext } from "components/providers/index"
+import { User } from "interfaces/user"
+
+type CustomLocation = {
+  state: { from: { pathname: string } }
+}
 
 const Login: React.VFC = () => {
   const navigate = useNavigate()
-  const { isAuth } = useAuth()
-  if (isAuth()) {
-    navigate("/")
-  }
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const authUser: AuthUserContextType = useAuthUserContext()
+  const location: CustomLocation = useLocation() as CustomLocation
+
   const { doPost, isLoading } = usePost<string>({
     method: 'post',
     url: 'http://localhost:8080/api/v1/auth/token'
   })
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
 
   if (isLoading) {
     return <Loader />
   }
 
-  const onFormSubmit = (event: React.FormEvent) => {
+  const onFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    doPost({
+    let token: string = ""
+    await doPost({
       params: {
         username,
         password
       },
-      onSuccess: (token) => {
-        if (token === undefined) return
-        console.log(`create [${token}] success!`)
-        localStorage.setItem('MBOOK_ACCESS_TOKEN', token)
-        navigate("/")
+      onSuccess: (response) => {
+        if (response === undefined) return
+        console.log(`create [${response}] success!`)
+        token = response
       },
       onError: (err) => {
         console.log(err.message)
       }
+    })
+    
+    const user: User = {
+      userId: 0,
+      name: username,
+      role: "system-admin",
+      token: token
+    }
+    authUser.signin(user, () => {
+      navigate(location.state.from.pathname, { replace: true })
     })
   }
 
