@@ -17,7 +17,10 @@ data class User(
     val user_name: String = "",
 
     @get: NotNull
-    val role_id: Int = 3
+    val role_id: Int = 3,
+
+    @get: NotNull
+    var token: String? = ""
 ) {
     fun getRole(): Role {
         return Role.getRole(role_id)

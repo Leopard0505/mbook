@@ -40,11 +40,7 @@ class AuthorizationController {
     @PostMapping("/")
     @NonAuthorize
     fun generateToken(@RequestBody user: User): ResponseEntity<String> {
-        // 加算される現在時間の取得(Calender型)
-        val calendar = Calendar.getInstance()
-        // 日時を加算する（10日）
-        calendar.add(Calendar.DATE, 10)
-        val token: String? = authorizationService.generateToken(user.user_id.toString(), calendar.time)
+        val token: String? = generateToken(user.user_id)
         return ResponseEntity.ok(token)
     }
 
@@ -53,7 +49,7 @@ class AuthorizationController {
      */
     @PostMapping("/token")
     @NonAuthorize
-    fun generateToken(@RequestBody request: LoginUser): ResponseEntity<String> {
+    fun generateToken(@RequestBody request: LoginUser): ResponseEntity<User> {
         logger.info("===========================")
         logger.info(String.format("username: [%s]", request.username))
         logger.info(String.format("password: [%s]", "*******"))
@@ -61,9 +57,21 @@ class AuthorizationController {
         // ユーザー名、パスワード確認
         request.validate()
         val user = userService.find(request.username)
+        val token: String? = generateToken(user.user_id)
+        user.token = token
+        return ResponseEntity.ok(user)
+    }
+
+    /**
+     * アクセストークンを生成
+     * @param userId: Long
+     * @return アクセストークン
+     */
+    private fun generateToken(userId: Long): String? {
+        // 加算される現在時間の取得(Calender型)
         val calendar = Calendar.getInstance()
+        // 日時を加算する（10日）
         calendar.add(Calendar.DATE, 10)
-        val token: String? = authorizationService.generateToken(user.user_id.toString(), calendar.time)
-        return ResponseEntity.ok(token)
+        return authorizationService.generateToken(userId.toString(), calendar.time)
     }
 }
