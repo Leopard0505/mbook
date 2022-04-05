@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import { Providers } from 'components/Providers';
 import { RouterConfig } from 'components/RouterConfig'
-import 'plugins/axios'
 
 import 'index.scss';
 import 'styles/globals.scss'

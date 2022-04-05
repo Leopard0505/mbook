@@ -1,15 +1,33 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useFetch } from "components/hooks/userFetch"
 import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
 import { Book } from "interfaces/book"
+import { useAuthUserContext } from "components/providers/index"
 
 const BookRegister: React.VFC = () => {
+  const authUser = useAuthUserContext().user
   const navigate = useNavigate()
-  const { data, isLoading, hasError, error } = useFetch<Book[]>({ url: 'http://localhost:8080/api/v1/books/' })
+  const { refetch, data, isLoading, hasError, error } = useFetch<Book[]>({
+    skip: true,
+    url: 'http://localhost:8080/api/v1/books/',
+    headers: {
+      Authorization: `Bearer ${authUser?.token}`
+    }
+  })
+
+  useEffect(() => {
+    (async() => {
+      await refetch()
+    })()
+  }, [])
+
   const { doPost, isLoading: isPostLoading } = usePost<Book>({
-    method: 'post'
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${authUser?.token}`
+    }
   })
   const [bookId, setBookId] = useState('')
   const [roll, setRoll] = useState('')

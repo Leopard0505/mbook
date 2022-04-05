@@ -6,7 +6,7 @@ import { AuthUserContextType, useAuthUserContext } from "components/providers/in
 import { User } from "interfaces/user"
 
 type CustomLocation = {
-  state: { from: { pathname: string } }
+  state: { from: { pathname:string } }
 }
 
 const Login: React.VFC = () => {
@@ -16,7 +16,7 @@ const Login: React.VFC = () => {
   const authUser: AuthUserContextType = useAuthUserContext()
   const location: CustomLocation = useLocation() as CustomLocation
 
-  const { doPost, isLoading } = usePost<string>({
+  const { doPost, isLoading } = usePost<User>({
     method: 'post',
     url: 'http://localhost:8080/api/v1/auth/token'
   })
@@ -27,7 +27,7 @@ const Login: React.VFC = () => {
 
   const onFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    let token: string = ""
+    let responseUser: User | undefined = undefined
     await doPost({
       params: {
         username,
@@ -35,21 +35,16 @@ const Login: React.VFC = () => {
       },
       onSuccess: (response) => {
         if (response === undefined) return
-        console.log(`create [${response}] success!`)
-        token = response
+        console.log(`create [${response.user_name}] success!`)
+        responseUser = response
       },
       onError: (err) => {
         console.log(err.message)
       }
     })
-    
-    const user: User = {
-      userId: 0,
-      name: username,
-      role: "system-admin",
-      token: token
-    }
-    authUser.signin(user, () => {
+
+    if (!responseUser) return
+    authUser.signin(responseUser, () => {
       navigate(location.state.from.pathname, { replace: true })
     })
   }

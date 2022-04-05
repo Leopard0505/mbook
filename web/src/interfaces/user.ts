@@ -1,14 +1,15 @@
 export const RoleType = {
-  SystemAdmin: 'system-admin',
-  Admin: 'admin',
-  User: 'user',
+  SystemAdmin: 'SYSTEM_ADMIN',
+  Admin: 'ADMIN',
+  User: 'USER',
 } as const;
 export type RoleType = typeof RoleType[keyof typeof RoleType];
 export const AllRoleType = Object.values(RoleType);
 
 export interface User {
-  userId: number
-  name: string
+  user_id: number
+  user_name: string
+  role_id: number
   role: RoleType
   token: string
 }

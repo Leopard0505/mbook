@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useFetch } from "components/hooks/userFetch";
 import { useQueryString } from "components/hooks/useQueryString";
 import Loader from "components/common/Loader";
 import { Book } from "interfaces/book";
+import { useAuthUserContext } from "components/providers/index";
 
 const BookList: React.VFC = () => {
+  const authUser = useAuthUserContext().user
   const querystring = useQueryString({ params: ['title', 'publisher'] })
-  const { data, isLoading, hasError, error } = useFetch<Book[]>({
-    url: 'http://localhost:8080/api/v1/books/' + querystring
+  const { refetch, data, isLoading, hasError, error } = useFetch<Book[]>({
+    skip: true,
+    url: 'http://localhost:8080/api/v1/books/' + querystring,
+    headers: {
+      Authorization: `Bearer ${authUser?.token}`
+    }
   })
+
+  useEffect(() => {
+    (async() => {
+      await refetch()
+    })()
+  }, [])
 
   if (isLoading) {
     return (

@@ -19,7 +19,7 @@ export const RouteAuthGuard: React.VFC<Props> = (props) => {
   }
 
   if (!allowRoute) {
-    return <Navigate to={props.redirect} state={{from:location.state}} replace={false} />
+    return <Navigate to={props.redirect} state={{from:location}} replace={false} />
   }
 
   return <>{props.component}</>

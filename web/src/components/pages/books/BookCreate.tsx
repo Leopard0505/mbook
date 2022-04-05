@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom"
 import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
 import { Book } from "interfaces/book"
+import { useAuthUserContext } from "components/providers/index"
 
 const BookCreate: React.VFC = () => {
+  const authUser = useAuthUserContext().user
   const navigate = useNavigate()
   const { doPost, isLoading } = usePost<Book>({
     method: 'post',
-    url: 'http://localhost:8080/api/v1/books/create'
+    url: 'http://localhost:8080/api/v1/books/create',
+    headers: {
+      Authorization: `Bearer ${authUser?.token}`
+    }
   })
   const [title, setTitle] = useState('')
   const [originalAuthor, setOriginalAuthor] = useState('')
