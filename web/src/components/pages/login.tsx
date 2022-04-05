@@ -18,7 +18,7 @@ const Login: React.VFC = () => {
 
   const { doPost, isLoading } = usePost<User>({
     method: 'post',
-    url: 'http://localhost:8080/api/v1/auth/token'
+    url: 'http://localhost:8080/api/v1/auth/signin'
   })
 
   if (isLoading) {
