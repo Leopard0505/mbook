@@ -1,11 +1,12 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 const Header: React.VFC = () => {
 	return (
 		<>
 			<div className="box is-padding-md is-flex is-between mbook">
 				<h1 className="text is-light is-weight-900">
-					<a href="/">MBOOK</a>
+					<Link to="/">MBOOK</Link>
 				</h1>
 				<nav>
 					<ul>
