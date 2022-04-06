@@ -4,6 +4,7 @@ import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
 import { AuthUserContextType, useAuthUserContext } from "components/providers/index"
 import { User } from "interfaces/user"
+import { useAlert } from "react-alert"
 
 type CustomLocation = {
   state: { from: { pathname:string } }
@@ -15,6 +16,7 @@ const Login: React.VFC = () => {
   const [password, setPassword] = useState('')
   const authUser: AuthUserContextType = useAuthUserContext()
   const location: CustomLocation = useLocation() as CustomLocation
+  const alert = useAlert()
 
   const { doPost, isLoading } = usePost<User>({
     method: 'post',
@@ -35,11 +37,11 @@ const Login: React.VFC = () => {
       },
       onSuccess: (response) => {
         if (response === undefined) return
-        console.log(`create [${response.user_name}] success!`)
+        alert.success(`create [${response.user_name}] success!`)
         responseUser = response
       },
       onError: (err) => {
-        console.log(err.message)
+        alert.error(err.message)
       }
     })
 

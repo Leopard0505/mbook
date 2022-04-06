@@ -5,8 +5,10 @@ import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
 import { Book } from "interfaces/book"
 import { useAuthUserContext } from "components/providers/index"
+import { useAlert } from "react-alert"
 
 const BookRegister: React.VFC = () => {
+  const alert = useAlert()
   const authUser = useAuthUserContext().user
   const navigate = useNavigate()
   const { refetch, data, isLoading, hasError, error } = useFetch<Book[]>({
@@ -50,11 +52,11 @@ const BookRegister: React.VFC = () => {
         special_edition: false
       },
       onSuccess: (book) => {
-        console.log(`create [${book?.title}] success!`)
+        alert.success(`create [${book?.title}] success!`)
         navigate("/")
       },
       onError: (err) => {
-        console.log(err.message)
+        alert.error(err.message)
       }
     })
   }

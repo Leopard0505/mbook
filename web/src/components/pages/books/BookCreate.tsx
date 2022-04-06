@@ -4,8 +4,10 @@ import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
 import { Book } from "interfaces/book"
 import { useAuthUserContext } from "components/providers/index"
+import { useAlert } from "react-alert"
 
 const BookCreate: React.VFC = () => {
+  const alert = useAlert()
   const authUser = useAuthUserContext().user
   const navigate = useNavigate()
   const { doPost, isLoading } = usePost<Book>({
@@ -36,11 +38,11 @@ const BookCreate: React.VFC = () => {
         publisher: publisher,
       },
       onSuccess: (book) => {
-        console.log(`create [${book?.title}] success!`)
+        alert.success(`create [${book?.title}] success!`)
         navigate("/")
       },
       onError: (err) => {
-        console.log(err.message)
+        alert.error(err.message)
       }
     })
   }
