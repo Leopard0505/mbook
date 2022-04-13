@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFetch } from "components/hooks/userFetch"
 import { usePost } from "components/hooks/usePost"
 import Loader from "components/common/Loader"
@@ -90,7 +90,7 @@ const BookRegister: React.VFC = () => {
             return (
               <tr key={book.book_id}>
                 <td className="text is-success is-weight-700">
-                  <a href={`/?title=${book.title}`}>{book.title} （{book.bookInfos.length}）</a>
+                  <Link to={`/?title=${book.title}`}>{book.title} （{book.bookInfos.length}）</Link>
                 </td>
                 <td>{book.original_author}</td>
                 <td>{book.drawer}</td>
