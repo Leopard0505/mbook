@@ -5,6 +5,7 @@ import com.rest.api.mbook.entity.Book
 import com.rest.api.mbook.entity.BookInfo
 import com.rest.api.mbook.entity.User
 import com.rest.api.mbook.service.BookService
+import com.rest.api.mbook.service.CsvFileService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import javax.servlet.http.HttpServletRequest
 
 /**
@@ -25,6 +27,9 @@ class BookController {
 
     @Autowired
     lateinit var bookService: BookService
+
+    @Autowired
+    lateinit var csvFileService: CsvFileService
 
     /**
      * 本情報一覧を取得
@@ -63,5 +68,20 @@ class BookController {
         bookInfo.book_id = id
         bookService.register(user, bookInfo)
         return ResponseEntity.ok(bookInfo)
+    }
+
+    @PostMapping("/upload")
+    @Authorize
+    fun upload(request: HttpServletRequest, @RequestParam("file") file: MultipartFile): ResponseEntity<List<Book>> {
+        // AuthorizationInterceptorで渡したuser属性を受け取る
+        val user = request.getAttribute("user") as User
+        val optionalCsvFileData = csvFileService.read(file)
+        val csvFileData = optionalCsvFileData.get()
+        val bookList = ArrayList<Book>()
+        for (book in csvFileData) {
+            bookService.create(user, book)
+            bookList.add(book)
+        }
+        return ResponseEntity.ok(bookList)
     }
 }
