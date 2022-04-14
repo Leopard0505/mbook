@@ -10,8 +10,9 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
-import java.util.IllegalFormatException
 import java.util.Optional
+import java.util.Objects
+import kotlin.collections.ArrayList
 
 /**
  * CSVファイル Service
@@ -43,9 +44,11 @@ class CsvFileService {
                 var line = bufferedReader.readLine()
                 while(line != null) {
                     val cells = line.split(",")
-                    // TODO ここでセル値のチェックを行う
                     // フォーマットがあるので必ず4要素（0-3）のみ
-                    val book = Book(title = cells[0], original_author = cells[1], drawer = cells[2], publisher = cells[3])
+                    val book = Book(title = this.getCellValue(cells[0]),
+                                    original_author = this.getCellValue(cells[1]),
+                                    drawer = this.getCellValue(cells[2]),
+                                    publisher = this.getCellValue(cells[3]))
                     lines.add(book)
                     line = bufferedReader.readLine()
                 }
@@ -59,6 +62,15 @@ class CsvFileService {
             throw RuntimeException("システムエラー", e)
         }
         return Optional.of(lines)
+    }
+
+    /**
+     * セル値にnullがあれば空を返す
+     * @param value: String
+     * @return セル値
+     */
+    private fun getCellValue(value: String): String {
+        return if (Objects.nonNull(value)) value else ""
     }
 
     /**
