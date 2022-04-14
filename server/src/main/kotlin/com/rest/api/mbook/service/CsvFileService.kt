@@ -1,6 +1,7 @@
 package com.rest.api.mbook.service
 
 import com.rest.api.mbook.entity.Book
+import com.rest.api.mbook.exception.IllegalFileFormatException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -9,6 +10,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
+import java.util.IllegalFormatException
 import java.util.Optional
 
 /**
@@ -16,6 +18,13 @@ import java.util.Optional
  */
 @Service
 class CsvFileService {
+
+    companion object {
+        const val HEADER_TEXT_TITLE: String = "タイトル"
+        const val HEADER_TEXT_ORIGINAL_AUTHOR: String = "原作者"
+        const val HEADER_TEXT_DRAWER: String = "作画"
+        const val HEADER_TEXT_PUBLISHER: String = "発売日"
+    }
 
     /**
      * logger ロガー
@@ -29,9 +38,9 @@ class CsvFileService {
         val lines = ArrayList<Book>()
         try {
             BufferedReader(InputStreamReader(file.inputStream, StandardCharsets.UTF_8)).use { bufferedReader ->
-                var line = bufferedReader.readLine()
+                this.validateTemplateFile(bufferedReader.readLine())
                 // ヘッダ分をスキップするためbufferedReader.readLine()を2回行う
-                line = bufferedReader.readLine()
+                var line = bufferedReader.readLine()
                 while(line != null) {
                     val cells = line.split(",")
                     // TODO ここでセル値のチェックを行う
@@ -53,16 +62,33 @@ class CsvFileService {
     }
 
     /**
-     * 正しいフォーマットか確認する
+     * csv形式か検証する
      */
-    private fun validateFormat() {
-        // TODO
+    private fun validateFileFormat() {
+        // TODO csv形式かチェックする
     }
 
     /**
-     * ファイルサイズが上限内か確認する
+     * 正しいテンプレートファイルか検証する
      */
-    private fun validateFileSize() {
+    private fun validateTemplateFile(line: String) {
+        // テンプレートファイルの形式かチェックする
+        val headers = line.split(",")
+        if (headers.size == 4
+            && HEADER_TEXT_TITLE.equals(headers[0])
+            && HEADER_TEXT_ORIGINAL_AUTHOR.equals(headers[1])
+            && HEADER_TEXT_DRAWER.equals(headers[2])
+            && HEADER_TEXT_PUBLISHER.equals(headers[3])
+        ) {
+            return
+        }
+        throw IllegalFileFormatException("CSVファイルの形式が違います。登録用のテンプレートファイルを使用してください。")
+    }
+
+    /**
+     * ファイルサイズが上限内か検証する
+     */
+    private fun validateFileSizeLimit() {
         // TODO
     }
 }

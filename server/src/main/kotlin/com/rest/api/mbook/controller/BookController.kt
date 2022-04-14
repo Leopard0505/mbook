@@ -70,6 +70,9 @@ class BookController {
         return ResponseEntity.ok(bookInfo)
     }
 
+    /**
+     * CSVファイルで本(マスタ)情報を登録
+     */
     @PostMapping("/upload")
     @Authorize
     fun upload(request: HttpServletRequest, @RequestParam("file") file: MultipartFile): ResponseEntity<List<Book>> {
